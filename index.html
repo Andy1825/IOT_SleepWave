@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SleepWave — Ventilación y luz que cuidan tu sueño</title>
+  <meta name="description" content="SleepWave reduce micro-despertares con ventilación inteligente y luz ámbar de apoyo. Monitorea ruido, temperatura y calidad de aire." />
+  <meta property="og:title" content="SleepWave — Ventilación y luz que cuidan tu sueño" />
+  <meta property="og:description" content="Reduce micro-despertares: ventilación inteligente, luz ámbar y monitoreo ambiental." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22/>">
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav__content">
+      <div class="brand">
+        <!-- Logo simple en SVG -->
+        <svg class="logo" width="36" height="36" viewBox="0 0 64 64" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0%" stop-color="#F8D37E" />
+              <stop offset="100%" stop-color="#F2B24A" />
+            </linearGradient>
+          </defs>
+          <!-- luna -->
+          <path d="M36 8a20 20 0 1 0 18 30a18 18 0 1 1-18-30z" fill="url(#g)"/>
+          <!-- olas -->
+          <path d="M10 44c6 6 14 6 20 0c6 6 14 6 20 0" fill="none" stroke="#5AA6E6" stroke-width="3" stroke-linecap="round"/>
+          <path d="M10 51c6 6 14 6 20 0c6 6 14 6 20 0" fill="none" stroke="#5AA6E6" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+        </svg>
+        <span class="brand__name">SleepWave</span>
+      </div>
+      <nav class="links">
+        <a href="#beneficios">Beneficios</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#demo">Demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <h1>Ventilación suave. Luz ámbar. <br/>Menos micro-despertares.</h1>
+          <p class="lead">
+            <strong>SleepWave</strong> detecta CO/ruido/temperatura y responde al instante:
+            aumenta la ventilación silenciosa y activa una luz ámbar de apoyo con decaimiento suave,
+            ayudando a que vuelvas a dormir sin esfuerzo.
+          </p>
+          <div class="cta">
+            <a class="btn" href="#demo">Ver demo</a>
+            <a class="btn btn--ghost" href="#como-funciona">Cómo funciona</a>
+          </div>
+          <ul class="bullets">
+            <li>Monitor ambiental (CO, temp., humedad, ruido)</li>
+            <li>Ventilador PWM ultrasilencioso</li>
+            <li>Luz ámbar con decaimiento exponencial</li>
+            <li>Dashboard IoT (MQTT + web / ThingSpeak)</li>
+          </ul>
+        </div>
+        <div class="hero__card">
+          <div class="card">
+            <div class="card__header">Estado (ejemplo)</div>
+            <div class="stats">
+              <div class="stat"><span class="stat__label">CO (ppm)</span><span class="stat__value">12</span></div>
+              <div class="stat"><span class="stat__label">Temp (°C)</span><span class="stat__value">20.4</span></div>
+              <div class="stat"><span class="stat__label">Humedad (%)</span><span class="stat__value">48</span></div>
+              <div class="stat"><span class="stat__label">Ruido (RMS)</span><span class="stat__value">Bajo</span></div>
+              <div class="stat"><span class="stat__label">Fan PWM</span><span class="stat__value">32%</span></div>
+              <div class="stat"><span class="stat__label">Luz ámbar</span><span class="stat__value">OFF</span></div>
+            </div>
+            <div class="mini-chart">Gráfica histórica (placeholder)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFICIOS -->
+    <section id="beneficios" class="section">
+      <div class="container">
+        <h2>Beneficios</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Sueño más continuo</h3>
+            <p>Reduce micro-despertares con ventilación adaptativa y enmascaramiento suave del ruido.</p>
+          </div>
+          <div class="card">
+            <h3>Confort ambiental</h3>
+            <p>Controla temperatura y humedad, y evita aire viciado para respirar mejor.</p>
+          </div>
+          <div class="card">
+            <h3>Privacidad por diseño</h3>
+            <p>Sin cámaras. Solo niveles de sonido y parámetros ambientales.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section id="como-funciona" class="section section--alt">
+      <div class="container grid-2">
+        <div>
+          <h2>Cómo funciona</h2>
+          <ol class="steps">
+            <li><strong>Sensoriza</strong> CO (MQ-7), temperatura/humedad (DHT22) y nivel de ruido (MAX9814).</li>
+            <li><strong>Detecta</strong> aire viciado o picos de ruido con lógica basada en umbrales y promedios móviles.</li>
+            <li><strong>Responde</strong> con <em>fan PWM</em> silencioso y <em>luz ámbar</em> con decaimiento exponencial.</li>
+            <li><strong>Registra</strong> métricas en un dashboard (MQTT + web/ThingSpeak) para ver tu noche en datos.</li>
+          </ol>
+        </div>
+        <div class="diagram">
+          <div class="chip">Raspberry Pi 3B+</div>
+          <div class="io">
+            <span>MQ-7 (CO)</span>
+            <span>DHT22</span>
+            <span>MAX9814</span>
+            <span>WS2812</span>
+            <span>FAN PWM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO -->
+    <section id="demo" class="section">
+      <div class="container">
+        <h2>Demo (placeholder)</h2>
+        <p>En la feria, aquí verás la gráfica en vivo (ThingSpeak o tu propio dashboard) y eventos de ruido/ventilación.</p>
+        <div class="demo-box">Embed del dashboard próximamente…</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__content">
+      <span>© <span id="y"></span> SleepWave</span>
+      <span>Hecho con ❤ en IoT</span>
+    </div>
+  </footer>
+
+  <script>
+    // año automático
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
