@@ -1,54 +1,181 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>SleepWave — Ventilación y luz que cuidan tu sueño</title>
-  <meta name="description" content="SleepWave reduce micro-despertares con ventilación inteligente y luz ámbar de apoyo. Monitorea ruido, temperatura y calidad de aire." />
-  <meta property="og:title" content="SleepWave — Ventilación y luz que cuidan tu sueño" />
-  <meta property="og:description" content="Reduce micro-despertares: ventilación inteligente, luz ámbar y monitoreo ambiental." />
-  <meta property="og:type" content="website" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22/>">
+  <meta name="description" content="SleepWave reduce micro-despertares con ventilación inteligente y luz ámbar. Landing con login/registro simulado.">
+  <style>
+    :root{
+      /* Paleta clara */
+      --bg:#f6f8fc;
+      --surface:#ffffff;
+      --surface-2:#f2f6ff;
+      --ink:#1a2640;
+      --muted:#5a6b87;
+      --brand:#3A7AFE;    /* azul */
+      --accent:#FFB648;   /* ámbar */
+      --ok:#20c997;
+      --danger:#ff6b6b;
+      --shadow: 0 10px 30px rgba(16,34,80,.12);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+    img,svg{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1120px,92%);margin-inline:auto}
+
+    /* NAV */
+    .nav{
+      position:sticky;top:0;z-index:10;
+      background:rgba(255,255,255,.8);backdrop-filter:blur(10px);
+      border-bottom:1px solid #e7edf9;
+    }
+    .nav__content{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:12px 0;
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand__logo{
+      width:56px;height:56px; /* más grande */
+      animation: float 6s ease-in-out infinite;
+      filter: drop-shadow(0 6px 16px rgba(58,122,254,.25));
+    }
+    .brand__name{
+      font-size:28px; /* más grande */
+      font-weight:800; letter-spacing:.2px;
+      background: linear-gradient(90deg,var(--ink),#345bff);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .links a{margin-left:20px;color:var(--muted);font-weight:600}
+    .links a:hover{color:var(--ink)}
+
+    /* HERO */
+    .hero{
+      background:
+        radial-gradient(1200px 500px at 20% -10%, #e9f1ff 0%, transparent 70%),
+        radial-gradient(1000px 400px at 90% -20%, #fff2e0 0%, transparent 70%);
+      padding:64px 0 34px;
+      overflow:clip;
+    }
+    .hero__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+    .kicker{color:var(--brand);font-weight:800;letter-spacing:.6px}
+    h1{font-size:clamp(30px,5vw,48px);line-height:1.05;margin:4px 0 12px}
+    .lead{color:var(--muted);font-size:18px}
+    .cta{display:flex;gap:12px;margin-top:18px}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--brand);color:#fff;padding:12px 18px;border-radius:14px;
+      box-shadow:var(--shadow);font-weight:700;transform:translateY(0);transition:.25s ease;
+    }
+    .btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+    .btn--ghost{background:#eaf1ff;color:var(--brand)}
+    .hero__card{
+      animation: rise .6s ease both .15s;
+    }
+    .card{
+      background:var(--surface);border:1px solid #e7edf9;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)
+    }
+    .card__header{font-weight:800;margin-bottom:8px}
+    .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .stat{background:var(--surface-2);border:1px solid #e7edf9;border-radius:14px;padding:10px}
+    .stat__label{color:var(--muted);font-size:12px}
+    .stat__value{font-size:18px;font-weight:800}
+    .mini-chart{margin-top:12px;height:130px;border:1px dashed #dbe6fb;border-radius:12px;display:grid;place-items:center;color:var(--muted);font-size:14px}
+
+    /* SECTIONS */
+    .section{padding:54px 0}
+    .section--alt{background:#f9fbff;border-top:1px solid #e7edf9;border-bottom:1px solid #e7edf9}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid-2{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+    .steps{color:var(--muted);padding-left:18px}
+    .diagram{background:var(--surface);border:1px solid #e7edf9;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .chip{display:inline-block;background:#eef3ff;border:1px solid #d8e4ff;padding:10px 14px;border-radius:999px;font-weight:800;color:#27408b}
+    .io{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px}
+    .io span{background:#fff7e9;border:1px solid #ffe0b3;padding:6px 10px;border-radius:999px;color:#8b5a27}
+
+    .demo-box{height:240px;border:1px dashed #dbe6fb;border-radius:16px;display:grid;place-items:center;color:var(--muted)}
+
+    /* FOOTER */
+    .footer{border-top:1px solid #e7edf9;padding:16px 0;margin-top:20px;color:var(--muted)}
+
+    /* AUTH (modal) */
+    .auth-bar{display:flex;gap:10px}
+    .modal{
+      position:fixed;inset:0;background:rgba(15,25,44,.45);backdrop-filter:blur(6px);
+      display:none;align-items:center;justify-content:center;padding:20px;
+      animation: fade .2s ease;
+    }
+    .modal.show{display:flex}
+    .dialog{width:min(480px,92%);background:var(--surface);border:1px solid #e7edf9;border-radius:20px;padding:22px;box-shadow:var(--shadow);animation: rise .35s ease both}
+    .dialog h3{margin:0 0 10px}
+    .field{display:grid;gap:6px;margin:10px 0}
+    .field input{
+      padding:12px 12px;border-radius:12px;border:1px solid #dbe6fb;background:#f8fbff;color:var(--ink);outline:none;
+    }
+    .dialog .btn{width:100%;justify-content:center;margin-top:6px}
+    .helper{margin-top:8px;color:var(--muted);font-size:14px}
+    .close-x{position:absolute;right:20px;top:14px;font-size:22px;color:#91a3c4;cursor:pointer}
+
+    /* Animaciones */
+    @keyframes fade{from{opacity:0}to{opacity:1}}
+    @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes float{
+      0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero__grid,.grid-2,.cards{grid-template-columns:1fr}
+      .links{display:none}
+    }
+  </style>
 </head>
 <body>
   <header class="nav">
     <div class="container nav__content">
       <div class="brand">
-        <!-- Logo simple en SVG -->
-        <svg class="logo" width="36" height="36" viewBox="0 0 64 64" aria-hidden="true">
+        <!-- Logo SVG más grande -->
+        <svg class="brand__logo" viewBox="0 0 64 64" aria-hidden="true">
           <defs>
             <linearGradient id="g" x1="0" x2="1">
-              <stop offset="0%" stop-color="#F8D37E" />
-              <stop offset="100%" stop-color="#F2B24A" />
+              <stop offset="0%" stop-color="#FFD98A"/>
+              <stop offset="100%" stop-color="#FFB648"/>
             </linearGradient>
           </defs>
           <!-- luna -->
           <path d="M36 8a20 20 0 1 0 18 30a18 18 0 1 1-18-30z" fill="url(#g)"/>
           <!-- olas -->
-          <path d="M10 44c6 6 14 6 20 0c6 6 14 6 20 0" fill="none" stroke="#5AA6E6" stroke-width="3" stroke-linecap="round"/>
-          <path d="M10 51c6 6 14 6 20 0c6 6 14 6 20 0" fill="none" stroke="#5AA6E6" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+          <path d="M10 44c6 6 14 6 20 0c6 6 14 6 20 0" fill="none" stroke="#3A7AFE" stroke-width="3" stroke-linecap="round"/>
+          <path d="M10 51c6 6 14 6 20 0c6 6 14 6 20 0" fill="none" stroke="#6ab0ff" stroke-width="3" stroke-linecap="round" opacity=".7"/>
         </svg>
         <span class="brand__name">SleepWave</span>
       </div>
+
       <nav class="links">
         <a href="#beneficios">Beneficios</a>
         <a href="#como-funciona">Cómo funciona</a>
         <a href="#demo">Demo</a>
       </nav>
+
+      <div class="auth-bar">
+        <a href="#" id="btnLogin" class="btn btn--ghost">Iniciar sesión</a>
+        <a href="#" id="btnRegister" class="btn">Crear cuenta</a>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
     <section class="hero">
       <div class="container hero__grid">
         <div class="hero__copy">
-          <h1>Ventilación suave. Luz ámbar. <br/>Menos micro-despertares.</h1>
+          <span class="kicker">Tecnología del sueño • IoT</span>
+          <h1>Ventilación suave y luz ámbar.<br/>Menos micro-despertares.</h1>
           <p class="lead">
             <strong>SleepWave</strong> detecta CO/ruido/temperatura y responde al instante:
-            aumenta la ventilación silenciosa y activa una luz ámbar de apoyo con decaimiento suave,
-            ayudando a que vuelvas a dormir sin esfuerzo.
+            aumenta la ventilación silenciosa y activa una luz ámbar con decaimiento suave,
+            ayudándote a volver a dormir sin esfuerzo.
           </p>
           <div class="cta">
             <a class="btn" href="#demo">Ver demo</a>
@@ -61,16 +188,17 @@
             <li>Dashboard IoT (MQTT + web / ThingSpeak)</li>
           </ul>
         </div>
+
         <div class="hero__card">
           <div class="card">
-            <div class="card__header">Estado (ejemplo)</div>
+            <div class="card__header">Estado (simulado)</div>
             <div class="stats">
-              <div class="stat"><span class="stat__label">CO (ppm)</span><span class="stat__value">12</span></div>
-              <div class="stat"><span class="stat__label">Temp (°C)</span><span class="stat__value">20.4</span></div>
-              <div class="stat"><span class="stat__label">Humedad (%)</span><span class="stat__value">48</span></div>
-              <div class="stat"><span class="stat__label">Ruido (RMS)</span><span class="stat__value">Bajo</span></div>
-              <div class="stat"><span class="stat__label">Fan PWM</span><span class="stat__value">32%</span></div>
-              <div class="stat"><span class="stat__label">Luz ámbar</span><span class="stat__value">OFF</span></div>
+              <div class="stat"><span class="stat__label">CO (ppm)</span><span class="stat__value" id="coVal">12</span></div>
+              <div class="stat"><span class="stat__label">Temp (°C)</span><span class="stat__value" id="tVal">20.4</span></div>
+              <div class="stat"><span class="stat__label">Humedad (%)</span><span class="stat__value" id="hVal">48</span></div>
+              <div class="stat"><span class="stat__label">Ruido (RMS)</span><span class="stat__value" id="nVal">Bajo</span></div>
+              <div class="stat"><span class="stat__label">Fan PWM</span><span class="stat__value" id="fanVal">32%</span></div>
+              <div class="stat"><span class="stat__label">Luz ámbar</span><span class="stat__value" id="ledVal">OFF</span></div>
             </div>
             <div class="mini-chart">Gráfica histórica (placeholder)</div>
           </div>
@@ -78,72 +206,214 @@
       </div>
     </section>
 
-    <!-- BENEFICIOS -->
     <section id="beneficios" class="section">
       <div class="container">
         <h2>Beneficios</h2>
         <div class="cards">
-          <div class="card">
-            <h3>Sueño más continuo</h3>
-            <p>Reduce micro-despertares con ventilación adaptativa y enmascaramiento suave del ruido.</p>
-          </div>
-          <div class="card">
-            <h3>Confort ambiental</h3>
-            <p>Controla temperatura y humedad, y evita aire viciado para respirar mejor.</p>
-          </div>
-          <div class="card">
-            <h3>Privacidad por diseño</h3>
-            <p>Sin cámaras. Solo niveles de sonido y parámetros ambientales.</p>
-          </div>
+          <div class="card"><h3>Sueño más continuo</h3><p>Reduce micro-despertares con ventilación adaptativa y enmascaramiento suave del ruido.</p></div>
+          <div class="card"><h3>Confort ambiental</h3><p>Controla temperatura y humedad, evita aire viciado y mejora la respiración nocturna.</p></div>
+          <div class="card"><h3>Privacidad por diseño</h3><p>Sin cámaras. Solo niveles de sonido y parámetros ambientales anónimos.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- CÓMO FUNCIONA -->
     <section id="como-funciona" class="section section--alt">
       <div class="container grid-2">
         <div>
           <h2>Cómo funciona</h2>
           <ol class="steps">
-            <li><strong>Sensoriza</strong> CO (MQ-7), temperatura/humedad (DHT22) y nivel de ruido (MAX9814).</li>
-            <li><strong>Detecta</strong> aire viciado o picos de ruido con lógica basada en umbrales y promedios móviles.</li>
-            <li><strong>Responde</strong> con <em>fan PWM</em> silencioso y <em>luz ámbar</em> con decaimiento exponencial.</li>
-            <li><strong>Registra</strong> métricas en un dashboard (MQTT + web/ThingSpeak) para ver tu noche en datos.</li>
+            <li><strong>Sensoriza</strong> CO (MQ-7), temp./humedad (DHT22) y ruido (MAX9814).</li>
+            <li><strong>Detecta</strong> aire viciado o picos de ruido con umbrales y medias móviles.</li>
+            <li><strong>Responde</strong> con ventilación PWM y luz ámbar con decaimiento exponencial.</li>
+            <li><strong>Registra</strong> métricas en un dashboard (MQTT + web / ThingSpeak).</li>
           </ol>
         </div>
         <div class="diagram">
           <div class="chip">Raspberry Pi 3B+</div>
           <div class="io">
-            <span>MQ-7 (CO)</span>
-            <span>DHT22</span>
-            <span>MAX9814</span>
-            <span>WS2812</span>
-            <span>FAN PWM</span>
+            <span>MQ-7 (CO)</span><span>DHT22</span><span>MAX9814</span><span>WS2812</span><span>FAN PWM</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- DEMO -->
     <section id="demo" class="section">
       <div class="container">
         <h2>Demo (placeholder)</h2>
-        <p>En la feria, aquí verás la gráfica en vivo (ThingSpeak o tu propio dashboard) y eventos de ruido/ventilación.</p>
-        <div class="demo-box">Embed del dashboard próximamente…</div>
+        <p>Próximamente: embed en vivo desde ThingSpeak o tu dashboard propio.</p>
+        <div class="demo-box">Aquí irá el gráfico en tiempo real.</div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container footer__content">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between">
       <span>© <span id="y"></span> SleepWave</span>
       <span>Hecho con ❤ en IoT</span>
     </div>
   </footer>
 
+  <!-- MODALES AUTH -->
+  <div class="modal" id="modalLogin" aria-hidden="true">
+    <div class="dialog">
+      <div class="close-x" data-close="modalLogin">×</div>
+      <h3>Iniciar sesión</h3>
+      <div class="field">
+        <label>Correo</label>
+        <input id="loginEmail" type="email" placeholder="tucorreo@dominio.com" autocomplete="username">
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <input id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn" id="doLogin">Entrar</button>
+      <div class="helper" id="loginMsg">Usa: demo@sleepwave.io / sleep123</div>
+    </div>
+  </div>
+
+  <div class="modal" id="modalRegister" aria-hidden="true">
+    <div class="dialog">
+      <div class="close-x" data-close="modalRegister">×</div>
+      <h3>Crear cuenta</h3>
+      <div class="field">
+        <label>Nombre</label>
+        <input id="regName" type="text" placeholder="Tu nombre">
+      </div>
+      <div class="field">
+        <label>Correo</label>
+        <input id="regEmail" type="email" placeholder="tucorreo@dominio.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <input id="regPass" type="password" placeholder="Mín. 6 caracteres" autocomplete="new-password">
+      </div>
+      <button class="btn" id="doRegister">Crear cuenta</button>
+      <div class="helper" id="regMsg">* Registro simulado localmente (sin backend).</div>
+    </div>
+  </div>
+
   <script>
-    // año automático
+    // Año en footer
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Datos "quemados" (simulados)
+    const USERS_KEY = "sleepwave_users";
+    const SESSION_KEY = "sleepwave_session";
+    const defaultUsers = [
+      {email:"demo@sleepwave.io", pass:"sleep123", name:"Demo"},
+      {email:"andres@uni.edu", pass:"iot2025", name:"Andrés"}
+    ];
+    if(!localStorage.getItem(USERS_KEY)){
+      localStorage.setItem(USERS_KEY, JSON.stringify(defaultUsers));
+    }
+
+    // Helpers usuarios simulados
+    const getUsers = () => JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+    const saveUsers = (arr) => localStorage.setItem(USERS_KEY, JSON.stringify(arr));
+    const setSession = (u) => localStorage.setItem(SESSION_KEY, JSON.stringify(u));
+    const getSession = () => JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+    const clearSession = () => localStorage.removeItem(SESSION_KEY);
+
+    // Auth UI
+    const modalLogin = document.getElementById('modalLogin');
+    const modalRegister = document.getElementById('modalRegister');
+    const btnLogin = document.getElementById('btnLogin');
+    const btnRegister = document.getElementById('btnRegister');
+
+    const open = (el)=>{ el.classList.add('show'); el.setAttribute('aria-hidden','false'); }
+    const close = (el)=>{ el.classList.remove('show'); el.setAttribute('aria-hidden','true'); }
+
+    btnLogin.addEventListener('click', e=>{ e.preventDefault(); open(modalLogin); });
+    btnRegister.addEventListener('click', e=>{ e.preventDefault(); open(modalRegister); });
+
+    document.querySelectorAll('.close-x').forEach(x=>{
+      x.addEventListener('click', ()=> close(document.getElementById(x.dataset.close)));
+    });
+    window.addEventListener('keydown', e=>{
+      if(e.key==='Escape'){ close(modalLogin); close(modalRegister); }
+    });
+    window.addEventListener('click', e=>{
+      if(e.target===modalLogin) close(modalLogin);
+      if(e.target===modalRegister) close(modalRegister);
+    });
+
+    // Login
+    document.getElementById('doLogin').addEventListener('click', ()=>{
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const pass  = document.getElementById('loginPass').value;
+      const msg = document.getElementById('loginMsg');
+      const user = getUsers().find(u=>u.email===email && u.pass===pass);
+      if(user){
+        setSession(user);
+        msg.textContent = "✔ Sesión iniciada. Bienvenido, " + (user.name||'usuario') + ".";
+        msg.style.color = "var(--ok)";
+        setTimeout(()=>{ close(modalLogin); updateAuthBar(); }, 600);
+      }else{
+        msg.textContent = "✖ Credenciales inválidas. Prueba demo@sleepwave.io / sleep123";
+        msg.style.color = "var(--danger)";
+      }
+    });
+
+    // Registro
+    document.getElementById('doRegister').addEventListener('click', ()=>{
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim().toLowerCase();
+      const pass  = document.getElementById('regPass').value;
+      const msg = document.getElementById('regMsg');
+
+      if(!email || !pass){
+        msg.textContent = "✖ Completa correo y contraseña.";
+        msg.style.color = "var(--danger)"; return;
+      }
+      if(pass.length<6){
+        msg.textContent = "✖ La contraseña debe tener al menos 6 caracteres.";
+        msg.style.color = "var(--danger)"; return;
+      }
+      const users = getUsers();
+      if(users.some(u=>u.email===email)){
+        msg.textContent = "✖ Ya existe una cuenta con ese correo.";
+        msg.style.color = "var(--danger)"; return;
+      }
+      users.push({email, pass, name: name||email.split('@')[0]});
+      saveUsers(users);
+      msg.textContent = "✔ Cuenta creada. Ya puedes iniciar sesión.";
+      msg.style.color = "var(--ok)";
+      setTimeout(()=>{ close(modalRegister); open(modalLogin); }, 700);
+    });
+
+    // Barra de sesión (simulada)
+    function updateAuthBar(){
+      const s = getSession();
+      const bar = document.querySelector('.auth-bar');
+      if(s){
+        bar.innerHTML = `
+          <span style="color:var(--muted);font-weight:700">Hola, ${s.name||'usuario'}</span>
+          <a href="#" class="btn btn--ghost" id="btnLogout">Salir</a>
+        `;
+        document.getElementById('btnLogout').addEventListener('click', (e)=>{
+          e.preventDefault(); clearSession(); updateAuthBar();
+        });
+      }else{
+        bar.innerHTML = `
+          <a href="#" id="btnLogin" class="btn btn--ghost">Iniciar sesión</a>
+          <a href="#" id="btnRegister" class="btn">Crear cuenta</a>
+        `;
+        document.getElementById('btnLogin').addEventListener('click', e=>{ e.preventDefault(); open(modalLogin); });
+        document.getElementById('btnRegister').addEventListener('click', e=>{ e.preventDefault(); open(modalRegister); });
+      }
+    }
+    updateAuthBar();
+
+    // Pequeña simulación para que “muevan” los números del card
+    setInterval(()=>{
+      const jitter = (v, d=0.3)=> (Math.random()<.5? v-d : v+d).toFixed(1);
+      document.getElementById('tVal').textContent = jitter(20.4);
+      document.getElementById('hVal').textContent = (48 + (Math.random()<.5?-1:1)).toString();
+      document.getElementById('fanVal').textContent = (30 + Math.floor(Math.random()*6)) + "%";
+      document.getElementById('coVal').textContent = (12 + Math.floor(Math.random()*4)).toString();
+      document.getElementById('ledVal').textContent = (Math.random()>.7? "ON":"OFF");
+      document.getElementById('nVal').textContent = (Math.random()>.8? "Medio":"Bajo");
+    }, 1800);
   </script>
 </body>
 </html>
